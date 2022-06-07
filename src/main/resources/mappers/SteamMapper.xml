@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.bj2.mapper.SteamMapper">
+
+
+
+    <insert id="insert">
+        <selectKey resultType="int" keyProperty="sno" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+        insert into tbl_steam (title, image, link,original_price,sale_percent,sale_price)
+        values (#{title},#{image}, #{link},#{original_price},#{sale_percent},#{sale_price})
+    </insert>
+
+    <select id="selectList"  resultType="com.example.bj2.domain.Steam">
+        select *
+        from tbl_steam
+
+        order by sno asc
+        limit #{skip},#{size}
+    </select>
+
+    <select id="getTotal" resultType="int">
+        select count(sno) from tbl_steam
+    </select>
+
+
+</mapper>
